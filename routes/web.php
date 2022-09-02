@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\CategoryController;
 use App\Http\Controllers\Frontend\TagController;
+use App\Http\Controllers\Frontend\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +46,4 @@ Route::get('/super-admin', function () {
 
 Route::resource('/category', CategoryController::class);
 Route::resource('/tag', TagController::class);
+Route::resource('/post', PostController::class);
