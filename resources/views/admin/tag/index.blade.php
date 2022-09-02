@@ -44,22 +44,31 @@
               </tr>
             </thead>
             <tbody>
-                @foreach ($tag as $key => $value)
+                @if ($tag->count())
+                    @foreach ($tag as $key => $value)
+                        <tr>
+                            <td>{{$value->tages_id}}</td>
+                            <td>{{$value->tages_name }}</td>
+                            <td>{{$value->tages_slug }}</td>
+                            <td>{{$value->tages_description }}</td>
+                            <td class="d-flex">
+                                <a href="{{route('tag.edit', $value->tages_id)}}" class="btn btn-sm btn-primary mr-1"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <form action="{{route('tag.destroy', $value->tages_id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger mr-1"><i class="fa-regular fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                @else
                     <tr>
-                        <td>{{$value->tages_id}}</td>
-                        <td>{{$value->tages_name }}</td>
-                        <td>{{$value->tages_slug }}</td>
-                        <td>{{$value->tages_description }}</td>
-                        <td class="d-flex">
-                            <a href="{{route('tag.edit', $value->tages_id)}}" class="btn btn-sm btn-primary mr-1"><i class="fa-regular fa-pen-to-square"></i></a>
-                            <form action="{{route('tag.destroy', $value->tages_id)}}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger mr-1"><i class="fa-regular fa-trash"></i></button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
+                        <td colspan="5">
+                            <h5 class="text-center">No tags founds</h5>
+                        </td>    
+                    </tr>         
+                @endif
+
             </tbody>
             
           </table>
