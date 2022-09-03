@@ -58,7 +58,7 @@
                                 </div>
                             </td>
                             <td>{{$value->posts_description }}</td>
-                            <td>{{$value->user_name }}</td>
+                            <td>{{$value->categories_name }}</td>
                             <td class="d-flex">
                                 <a href="{{route('post.edit', $value->posts_id)}}" class="btn btn-sm btn-primary mr-1"><i class="fa-regular fa-pen-to-square"></i></a>
                                 <form action="{{route('post.destroy', $value->posts_id)}}" method="POST">

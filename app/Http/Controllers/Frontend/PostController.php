@@ -20,7 +20,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::orderBy('posts_id', 'DESC')->paginate(5);
+        $post = DB::table('posts')
+            ->orderBy('posts_id', 'DESC')
+            ->join('categories', 'posts.posts_id', '=', 'categories.categories_id')
+            ->paginate(5);
         return view('admin.post.index', compact('post'));
     }
 
@@ -66,14 +69,6 @@ class PostController extends Controller
 
         $post->save();
 
-        // if($request->has('image')){
-        //     $image = $request->image;
-        //     $image_new_name = time() . '.' . $image->getClientOriginalExtension();
-        //     $image->move('storage/image', $image_new_name);
-        //     $post->posts_image = '/storage/image'.$image_new_name;
-        //     $post->save();
-        // }
-
         $request->session()->flash('success', 'Data Inserted successfully');
         return redirect()->back();
     }
@@ -97,7 +92,14 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+        $post = DB::table('posts')
+            ->where('posts_id', $id)
+            ->orderBy('posts_id', 'DESC')
+            ->join('categories', 'posts.posts_id', '=', 'categories.categories_id')
+            ->get();
+        // $category = Category::all();
+        return view('admin.post.edit', compact('post'));
     }
 
     /**
@@ -109,7 +111,33 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'title' => 'required|unique:posts,posts_title',
+            'description' => 'required',
+            // 'category' => 'required',
+        ]);
+        $post = Post::find($id);
+        // dd($post->all());
+
+        $post->posts_title = $request->title;
+        $post->posts_slug = Str::slug($request->title, '-');
+        if($request->has('image')){
+            $image = $request->image;
+            $image_new_name = time() . '.' . $image->getClientOriginalExtension();
+            $image->move('image/', $image_new_name);
+            $post->posts_image = $image_new_name;
+        }
+        $post->posts_description = $request->description;
+        $post->categories_id = $request->category;
+        $post->user_name= $request->name;
+        $post->post_published_at = Carbon::now();
+
+        $post->save();
+
+        $request->session()->flash('success', 'Data Inserted successfully');
+        return redirect()->back();
+
     }
 
     /**
@@ -120,6 +148,17 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+       $post = Post::where('posts_id', $id);
+       if(!is_null($post) ){
+            // unlink($post->posts_image);
+            // if(file_exists(public_path($post->posts_image))){
+            //     dd('found');
+            // }
+            // else{
+            //     dd('notfound');
+            // }
+            $post->delete();
+       }
+       return redirect()->back();
     }
 }

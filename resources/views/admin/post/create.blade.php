@@ -39,7 +39,7 @@
             <div class="card-body">
               <div class="form-group">
                 <label for="title">Post Title</label>
-                <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}" placeholder="Post Title">
+                <input type="text" class="form-control" id="title" name="title" value="" placeholder="Post Title">
                 @error('title')
                     <div class="alert text-danger">{{ $message }}</div>
                 @enderror
