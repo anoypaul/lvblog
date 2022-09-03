@@ -34,36 +34,45 @@
         @endif
       </div>
       <div class="card-body p-0">
-        <form action="{{route('post.store')}}" method="POST">
+        <form action="{{route('post.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
               <div class="form-group">
-                <label for="name">Select Category</label>
-                <select name="" id="" class="form-control">
-                  <option value="">ass</option>
-                </select>
+                <label for="title">Post Title</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}" placeholder="Post Title">
+                @error('title')
+                    <div class="alert text-danger">{{ $message }}</div>
+                @enderror
               </div>
               <div class="form-group">
-                <label for="title">Post Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="Post Title">
-                @error('title')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <label for="name">Select Category</label>
+                <select name="category" id="" class="form-control">
+                  <option value="" class="d-none" selected>Select Category</option>
+                  @foreach ($category as $value)
+                      <option value="{{$value->categories_id}}">{{$value->categories_name}}</option>
+                  @endforeach
+                </select>
+                @error('category')
+                <div class="alert text-danger">{{ $message }}</div>
                 @enderror
               </div>
               <div class="form-group">
                 <label for="title">Post Image</label>
                 <input type="file" class="form-control" id="image" name="image" placeholder="Post Image">
+                @error('image')
+                  <div class="alert text-danger">{{ $message }}</div>
+                @enderror
               </div>
               <div class="form-group">
                 <label for="description">Post description</label>
-                <textarea class="form-control" rows="4" name="description" id="description" placeholder="Enter Description"></textarea>
+                <textarea class="form-control" rows="4" name="description" id="description" value="{{old('description')}}" placeholder="Enter Description"></textarea>
+                @error('description')
+                  <div class="alert text-danger">{{ $message }}</div>
+                @enderror
               </div>
               <div class="form-group">
                 <label for="title">User Name</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="User Name">
-                @error('name')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+                <input type="text" class="form-control" id="name" name="name"  value="{{old('name')}}" placeholder="User Name">
               </div>
             </div>
             <div class="card-footer">

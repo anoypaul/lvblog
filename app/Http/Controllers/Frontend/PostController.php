@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Frontend\Category;
 use App\Models\Frontend\Post;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+
 
 class PostController extends Controller
 {
@@ -26,7 +31,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.post.create');
+        $category = Category::all();
+        return view('admin.post.create', compact('category'));
     }
 
     /**
@@ -37,7 +43,39 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|unique:posts,posts_title',
+            'image' => 'required|image',
+            'description' => 'required',
+            'category' => 'required',
+        ]);
+        $post = new Post();
+
+        $post->posts_title = $request->title;
+        $post->posts_slug = Str::slug($request->title, '-');
+        if($request->has('image')){
+            $image = $request->image;
+            $image_new_name = time() . '.' . $image->getClientOriginalExtension();
+            $image->move('image/', $image_new_name);
+            $post->posts_image = $image_new_name;
+        }
+        $post->posts_description = $request->description;
+        $post->categories_id = $request->category;
+        $post->user_name= $request->name;
+        $post->post_published_at = Carbon::now();
+
+        $post->save();
+
+        // if($request->has('image')){
+        //     $image = $request->image;
+        //     $image_new_name = time() . '.' . $image->getClientOriginalExtension();
+        //     $image->move('storage/image', $image_new_name);
+        //     $post->posts_image = '/storage/image'.$image_new_name;
+        //     $post->save();
+        // }
+
+        $request->session()->flash('success', 'Data Inserted successfully');
+        return redirect()->back();
     }
 
     /**
