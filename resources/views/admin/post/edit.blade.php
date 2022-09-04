@@ -40,7 +40,7 @@
             <div class="card-body">
               @php
                   // echo '<pre>';
-                  // print_r($post[0]->posts_title);
+                  // print_r($post[0]);
                   // exit;
               @endphp
               <div class="form-group">
@@ -77,6 +77,18 @@
                 @error('image')
                   <div class="alert text-danger">{{ $message }}</div>
                 @enderror
+              </div>
+              <div class="form-group">
+                @foreach ($tags as $value)
+                  <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" type="checkbox" name="tags[]" id="tag{{$value->tages_id}}" value="{{$value->tages_id}}"
+                    @foreach ($post as $tag)
+                        @if ($value->tages_id == $tag->posts_id) checked @endif
+                    @endforeach
+                    >
+                    <label for="tag{{$value->tages_id}}" class="custom-control-label">{{$value->tages_name}}</label>
+                  </div>
+                @endforeach
               </div>
               <div class="form-group">
                 <label for="description">Post description</label>

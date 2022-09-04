@@ -64,6 +64,15 @@
                 @enderror
               </div>
               <div class="form-group">
+                @foreach ($tags as $value)
+                  <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" type="checkbox" name="tags[]" id="tag{{$value->tages_id}}" value="{{$value->tages_id}}">
+                    <label for="tag{{$value->tages_id}}" class="custom-control-label">{{$value->tages_name}}</label>
+                  </div>
+                    {{-- <span>{{$value->tages_name}}</span> --}}
+                @endforeach
+              </div>
+              <div class="form-group">
                 <label for="description">Post description</label>
                 <textarea class="form-control" rows="4" name="description" id="description" value="{{old('description')}}" placeholder="Enter Description"></textarea>
                 @error('description')

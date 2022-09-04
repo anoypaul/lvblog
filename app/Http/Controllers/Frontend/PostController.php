@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Frontend\Category;
 use App\Models\Frontend\Post;
+use App\Models\Frontend\Tag;
+use App\Models\Frontend\Post_tag;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -35,7 +37,9 @@ class PostController extends Controller
     public function create()
     {
         $category = Category::all();
-        return view('admin.post.create', compact('category'));
+        $tags = Tag::all();
+        
+        return view('admin.post.create', compact(['category', 'tags']));
     }
 
     /**
@@ -66,8 +70,22 @@ class PostController extends Controller
         $post->categories_id = $request->category;
         $post->user_name= $request->name;
         $post->post_published_at = Carbon::now();
-
         $post->save();
+        $insertedId = DB::getPdo()->lastInsertId();
+
+        $post_tag = new Post_tag();
+
+        // $post->tags()->attach($request->tags);
+
+        // $data = implode(" ",$request->tags);
+        $tags_data = $request->tags;
+
+        foreach ($tags_data as $key => $value) {
+            $post_tag->posts_id = $insertedId;
+            $post_tag->tages_id = $value;
+        }
+        $post_tag->save();
+
 
         $request->session()->flash('success', 'Data Inserted successfully');
         return redirect()->back();
@@ -99,7 +117,9 @@ class PostController extends Controller
             ->join('categories', 'posts.posts_id', '=', 'categories.categories_id')
             ->get();
         // $category = Category::all();
-        return view('admin.post.edit', compact('post'));
+        $tags = Tag::all();
+
+        return view('admin.post.edit', compact(['post', 'tags']));
     }
 
     /**
@@ -155,7 +175,7 @@ class PostController extends Controller
             //     dd('found');
             // }
             // else{
-            //     dd('notfound');
+            //     dd('not found');
             // }
             $post->delete();
        }

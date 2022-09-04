@@ -20,6 +20,10 @@ class CreateTagesTable extends Migration
             $table->text('tages_description')->nullable();
             $table->timestamps();
         });
+        // Schema::create('posts_tag', function (Blueprint $table) {
+        //     $table->integer('posts_id');
+        //     $table->integer('tages_id');
+        // });
     }
 
     /**
@@ -30,5 +34,6 @@ class CreateTagesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('tages');
+        Schema::dropIfExists('post_tag');
     }
 }
