@@ -18,6 +18,10 @@ class Post extends Model
         'post_published_at' => 'datetime:Y-m-d',
     ];
 
+    public function category(){
+        return $this->belongsTo(Category::class, 'categories_id');
+    }
+
     public function tags(){
         // return $this->belongsToMany('App\Models\Frontend\Tag');
         return $this->belongsToMany(Tag::class, 'tages_id');

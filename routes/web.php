@@ -31,7 +31,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/', [UserController::class, 'index']);
 Route::get('/category', [UserController::class, 'category']);
-Route::get('/single', [UserController::class, 'single']);
+Route::get('/single/{slug}', [UserController::class, 'single']);
 
 // Route::get('/', function () {
 //     return view('frontend.index');
