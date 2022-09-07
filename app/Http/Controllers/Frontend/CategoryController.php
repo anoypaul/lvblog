@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
+//*** This is the AdminSide Controller **
+
 class CategoryController extends Controller
 {
     /**

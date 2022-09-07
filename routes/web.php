@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\CategoryController;
 use App\Http\Controllers\Frontend\TagController;
 use App\Http\Controllers\Frontend\PostController;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,15 +29,19 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // ____Frontend Route_____
 
-Route::get('/', function () {
-    return view('frontend.index');
-});
-Route::get('/category', function () {
-    return view('frontend.category');
-});
-Route::get('/single', function () {
-    return view('frontend.single');
-});
+Route::get('/', [UserController::class, 'index']);
+Route::get('/category', [UserController::class, 'category']);
+Route::get('/single', [UserController::class, 'single']);
+
+// Route::get('/', function () {
+//     return view('frontend.index');
+// });
+// Route::get('/category', function () {
+//     return view('frontend.category');
+// });
+// Route::get('/single', function () {
+//     return view('frontend.single');
+// });
 
 
 // ____Backend Route_____

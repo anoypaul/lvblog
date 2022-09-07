@@ -5,6 +5,8 @@ namespace App\Models\Frontend;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+//*** This is the AdminSide Model **
+
 class Category extends Model
 {
     use HasFactory;

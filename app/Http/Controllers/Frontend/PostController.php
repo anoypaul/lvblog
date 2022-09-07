@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
+//*** This is the AdminSide Controller **
 
 class PostController extends Controller
 {
@@ -24,7 +25,7 @@ class PostController extends Controller
     {
         $post = DB::table('posts')
             ->orderBy('posts_id', 'DESC')
-            ->join('categories', 'posts.posts_id', '=', 'categories.categories_id')
+            ->join('categories', 'posts.categories_id', '=', 'categories.categories_id')
             ->paginate(5);
         return view('admin.post.index', compact('post'));
     }
@@ -97,7 +98,7 @@ class PostController extends Controller
         $post_data = DB::table('posts')
         ->where('posts_id', $id)
         ->orderBy('posts_id', 'DESC')
-        ->join('categories', 'posts.posts_id', '=', 'categories.categories_id')
+        ->join('categories', 'posts.categories_id', '=', 'categories.categories_id')
         ->join('post_tag', 'posts.posts_id', '=', 'post_tag.post_id')
         ->get();
         // dd($post_data);
