@@ -57,10 +57,12 @@
                                     <img src="{{asset('image/'. $value->posts_image)}}" class="img-fluid" alt="">
                                 </div>
                             </td>
-                            <td>{{$value->posts_description }}</td>
+                            <td>{!! $value->posts_description !!}</td>
+                            {{-- <td>{!! Str::limit($value->posts_description, 20)  !!}</td> --}}
                             <td>{{$value->categories_name }}</td>
                             <td class="d-flex">
                                 <a href="{{route('post.edit', $value->posts_id)}}" class="btn btn-sm btn-primary mr-1"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="{{route('post.show', $value->posts_id)}}" class="btn btn-sm btn-primary mr-1"><span class="material-icons">preview</span></a>
                                 <form action="{{route('post.destroy', $value->posts_id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')

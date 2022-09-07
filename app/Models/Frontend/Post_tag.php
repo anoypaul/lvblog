@@ -11,5 +11,9 @@ class Post_tag extends Model
 
     protected $table = 'post_tag';
     protected $primaryKey = 'post_tag_id';
-    protected $fillable = ['post_tag_id', 'post_id', 'tag_id'];
+    protected $fillable = ['post_tag_id', 'posts_id', 'tages_id'];
+
+    // protected $casts = [
+    //     'tages_id' => 'array',
+    // ];
 }

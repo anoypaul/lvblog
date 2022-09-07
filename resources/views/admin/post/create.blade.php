@@ -6,12 +6,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0">Category List</h1>
+            <h1 class="m-0">Post List</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Category List</li>
+            <li class="breadcrumb-item active">Post List</li>
             <li class="breadcrumb-item active">Create</li>
             </ol>
         </div><!-- /.col -->
@@ -24,8 +24,8 @@
     <div class="card">
       <div class="card-header ">
         <div class="d-flex justify-content-between align-item-center">
-            <h5 class="m-0">Category Create</h5>
-            <a href="#" class="btn btn-primary">Category List</a>
+            <h5 class="m-0">Post Create</h5>
+            <a href="#" class="btn btn-primary">Post List</a>
         </div>
       </div>
       <div>
@@ -73,7 +73,7 @@
                 @endforeach
               </div>
               <div class="form-group">
-                <label for="description">Post description</label>
+                <label for="Description">Post description</label>
                 <textarea class="form-control" rows="4" name="description" id="description" value="{{old('description')}}" placeholder="Enter Description"></textarea>
                 @error('description')
                   <div class="alert text-danger">{{ $message }}</div>
@@ -92,4 +92,19 @@
     </div>
 </div>
 
+@endsection
+
+
+@section('style')
+  <link rel="stylesheet" href="{{ asset('admin') }}/dist/css/summernote-bs4.css">
+@endsection
+@section('script')
+  <script src="{{ asset('admin') }}/dist/js/summernote-bs4.js"></script>
+  <script>
+    $('#description').summernote({
+      placeholder: 'Hello Bootstrap 4',
+      tabsize: 2,
+      height: 100
+    });
+  </script>
 @endsection

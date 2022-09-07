@@ -74,14 +74,9 @@ class PostController extends Controller
         $insertedId = DB::getPdo()->lastInsertId();
 
         $post_tag = new Post_tag();
-
-        // $post->tags()->attach($request->tags);
-
-        // $data = implode(" ",$request->tags);
         $tags_data = $request->tags;
-
         foreach ($tags_data as $key => $value) {
-            $post_tag->posts_id = $insertedId;
+            $post_tag->post_id = $insertedId;
             $post_tag->tages_id = $value;
         }
         $post_tag->save();
@@ -99,7 +94,17 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post_data = DB::table('posts')
+        ->where('posts_id', $id)
+        ->orderBy('posts_id', 'DESC')
+        ->join('categories', 'posts.posts_id', '=', 'categories.categories_id')
+        ->join('post_tag', 'posts.posts_id', '=', 'post_tag.post_id')
+        ->get();
+        // dd($post_data);
+        $tags = Tag::all();
+        // dd($tags);
+
+        return view('admin.post.show', compact(['post_data', 'tags']));
     }
 
     /**
@@ -110,13 +115,14 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        
+       
         $post = DB::table('posts')
             ->where('posts_id', $id)
             ->orderBy('posts_id', 'DESC')
             ->join('categories', 'posts.posts_id', '=', 'categories.categories_id')
+            ->join('post_tag', 'posts.posts_id', '=', 'post_tag.post_id')
             ->get();
-        // $category = Category::all();
+
         $tags = Tag::all();
 
         return view('admin.post.edit', compact(['post', 'tags']));
@@ -131,14 +137,12 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
         $request->validate([
-            'title' => 'required|unique:posts,posts_title',
+            'title' => 'required',
             'description' => 'required',
             // 'category' => 'required',
         ]);
         $post = Post::find($id);
-        // dd($post->all());
 
         $post->posts_title = $request->title;
         $post->posts_slug = Str::slug($request->title, '-');
@@ -155,6 +159,26 @@ class PostController extends Controller
 
         $post->save();
 
+        $insertedId = DB::getPdo()->lastInsertId();
+
+        $tags_data = $request->tags;
+        $data = implode($tags_data);
+        $post_tag = DB::table('post_tag')->where('posts_id', $id)->update([
+            'tages_id' => $data,
+        ]);
+
+        // $post_tag = new Post_tag();
+        // $tags_data = $request->tags;
+        // $data = implode($tags_data);
+        // $post_tag->posts_id = $insertedId;
+        // $post_tag->tages_id = $data;
+        // foreach ($tags_data as $key => $value) {
+        //     $post_tag->posts_id = $insertedId;
+        //     $post_tag->tages_id = $value;
+        // }
+        // $post_tag->save();
+
+
         $request->session()->flash('success', 'Data Inserted successfully');
         return redirect()->back();
 
@@ -169,7 +193,8 @@ class PostController extends Controller
     public function destroy($id)
     {
        $post = Post::where('posts_id', $id);
-       if(!is_null($post) ){
+       $post_tag = Post_tag::where('post_id', $id);
+       if(!is_null($post)){
             // unlink($post->posts_image);
             // if(file_exists(public_path($post->posts_image))){
             //     dd('found');
@@ -178,6 +203,10 @@ class PostController extends Controller
             //     dd('not found');
             // }
             $post->delete();
+            $post_tag->delete();
+       }
+       if(!is_null($post_tag) ){
+            $post_tag->delete();
        }
        return redirect()->back();
     }

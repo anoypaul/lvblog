@@ -82,8 +82,8 @@
                 @foreach ($tags as $value)
                   <div class="custom-control custom-checkbox">
                     <input class="custom-control-input" type="checkbox" name="tags[]" id="tag{{$value->tages_id}}" value="{{$value->tages_id}}"
-                    @foreach ($post as $tag)
-                        @if ($value->tages_id == $tag->posts_id) checked @endif
+                    @foreach ($post as $posts)
+                        @if ($value->tages_id == $posts->tages_id) checked @endif
                     @endforeach
                     >
                     <label for="tag{{$value->tages_id}}" class="custom-control-label">{{$value->tages_name}}</label>
