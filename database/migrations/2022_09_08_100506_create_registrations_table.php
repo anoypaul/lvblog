@@ -20,7 +20,7 @@ class CreateRegistrationsTable extends Migration
             $table->string('registrations_email')->unique();
             $table->string('registrations_image')->nullable();
             $table->string('registrations_description')->nullable();
-            $table->string('password');
+            $table->string('registrations_password');
             $table->timestamps();
         });
     }

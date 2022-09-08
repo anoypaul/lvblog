@@ -54,9 +54,12 @@ Route::get('/single/{slug}', [UserController::class, 'single']);
 // })->name('super.admin');
 
 // ****** register start *****
-Route::get('/super-admin', [RegistrationController::class, 'index']);
+Route::get('/login', [RegistrationController::class, 'login_page']);
 Route::get('/super-admin/registration', [RegistrationController::class, 'registration']);
 Route::post('/super-admin/registration/create', [RegistrationController::class, 'create'])->name('registration.create');
+Route::post('/super-admin/login', [RegistrationController::class, 'login'])->name('login');
+Route::get('/super-admin', [RegistrationController::class, 'index_page'])->name('super.admin');
+
 // ****** register end *****
 
 Route::resource('/category', CategoryController::class);

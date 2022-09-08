@@ -16,6 +16,11 @@
             <div class="card-header">
                 <h5 class="text-center text-primary">Admin Registration</h5>
             </div>
+            <div>
+                @if (Session::has('status'))
+                    <p class="alert alert-primary">{{Session::get('status')}}</p>
+                @endif
+            </div>
             <form action="{{route('registration.create')}}" method="POST">
                 @csrf
                 <div class="card-body">
@@ -28,7 +33,7 @@
                     </div>
                     <div class="form-group">
                         <label for="mobile">Mobile Number</label>
-                        <input type="number" class="form-control" id="mobile" name="mobile" value="{{old('mobile')}}" placeholder="Enter Your Mobile number" autocomplete="off">
+                        <input type="number" class="form-control" id="mobile" name="mobile" min="9" value="{{old('mobile')}}" placeholder="Enter Your Mobile number" autocomplete="off">
                         @error('mobile')
                             <p class="text-danger"> {{ $message }}</p>
                         @enderror
@@ -47,6 +52,7 @@
                             <p class="text-danger"> {{ $message }}</p>
                         @enderror
                     </div>
+                    <a href="{{url('/super-admin/')}}" class="text-danger"> Please login </a>
                 </div>
                 <div class="card-footer text-center">
                     <button type="submit" class="btn btn-primary ">Register</button>

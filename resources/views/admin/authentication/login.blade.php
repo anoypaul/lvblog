@@ -16,7 +16,7 @@
             <div class="card-header">
                 <h5 class="text-center text-primary">Admin Login</h5>
             </div>
-            <form action="" method="POST">
+            <form action="{{route('login')}}" method="POST">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
