@@ -57,7 +57,8 @@
                                     <img src="{{asset('image/'. $value->posts_image)}}" class="img-fluid" alt="">
                                 </div>
                             </td>
-                            <td>{!! $value->posts_description !!}</td>
+                            <td><p> {!! Str::limit($value->posts_description, '10', '...')  !!}</p></td>
+                            {{-- <p>{!! Str::limit($value->posts_description, '10', '...')  !!}</p> --}}
                             {{-- <td>{!! Str::limit($value->posts_description, 20)  !!}</td> --}}
                             <td>{{$value->categories_name }}</td>
                             <td class="d-flex">

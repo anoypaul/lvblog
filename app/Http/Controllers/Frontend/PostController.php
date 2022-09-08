@@ -119,10 +119,9 @@ class PostController extends Controller
         $post = DB::table('posts')
             ->where('posts_id', $id)
             ->orderBy('posts_id', 'DESC')
-            // ->join('categories', 'posts.posts_id', '=', 'categories.categories_id')
-            // ->join('post_tag', 'posts.posts_id', '=', 'post_tag.post_id')
+            ->join('categories', 'posts.categories_id', '=', 'categories.categories_id')
+            ->join('post_tag', 'posts.posts_id', '=', 'post_tag.post_id')
             ->get();
-        dd($post);
         $tags = Tag::all();
 
         return view('admin.post.edit', compact(['post', 'tags']));
@@ -140,7 +139,6 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            // 'category' => 'required',
         ]);
         $post = Post::find($id);
 
@@ -156,30 +154,15 @@ class PostController extends Controller
         $post->categories_id = $request->category;
         $post->user_name= $request->name;
         $post->post_published_at = Carbon::now();
-
         $post->save();
 
-        $insertedId = DB::getPdo()->lastInsertId();
-
+        $post_tag = Post_tag::find($id);
         $tags_data = $request->tags;
         $data = implode($tags_data);
-        $post_tag = DB::table('post_tag')->where('posts_id', $id)->update([
-            'tages_id' => $data,
-        ]);
+        $post_tag->tages_id = $data;
+        $post_tag->save();
 
-        // $post_tag = new Post_tag();
-        // $tags_data = $request->tags;
-        // $data = implode($tags_data);
-        // $post_tag->posts_id = $insertedId;
-        // $post_tag->tages_id = $data;
-        // foreach ($tags_data as $key => $value) {
-        //     $post_tag->posts_id = $insertedId;
-        //     $post_tag->tages_id = $value;
-        // }
-        // $post_tag->save();
-
-
-        $request->session()->flash('success', 'Data Inserted successfully');
+        $request->session()->flash('success', 'Data Updated successfully');
         return redirect()->back();
 
     }

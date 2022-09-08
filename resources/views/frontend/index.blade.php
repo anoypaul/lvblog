@@ -4,50 +4,44 @@
 <div class="site-section bg-light">
   <div class="container">
     <div class="row align-items-stretch retro-layout-2">
+
       <div class="col-md-4">
-        <a href="single.html" class="h-entry mb-30 v-height gradient" style="background-image: url('{{ asset('frontend') }}/images/img_1.jpg');">
-          
-          <div class="text">
-            <h2>The AI magically removes moving objects from videos.</h2>
-            <span class="date">July 19, 2019</span>
-          </div>
-        </a>
-        <a href="single.html" class="h-entry v-height gradient" style="background-image: url('{{ asset('frontend') }}/images/img_2.jpg');">
-          
-          <div class="text">
-            <h2>The AI magically removes moving objects from videos.</h2>
-            <span class="date">July 19, 2019</span>
-          </div>
-        </a>
+        @foreach ($fastPost as $value)
+          <a href="single.html" class="h-entry mb-30 v-height gradient" style="background-image: url('{{ asset('image/'.$value->posts_image) }} ');">
+            
+            <div class="text">
+              <h2>{{$value->posts_title}}</h2>
+              <span class="date">{{date("d M Y", strtotime($value->post_published_at))}}</span>
+            </div>
+          </a>
+        @endforeach
       </div>
+
       <div class="col-md-4">
-        <a href="single.html" class="h-entry img-5 h-100 gradient" style="background-image: url('{{ asset('frontend') }}/images/img_v_1.jpg');">
+        @foreach ($middlePost as $value)
+        <a href="single.html" class="h-entry img-5 h-100 gradient" style="background-image: url('{{ asset('image/'.$value->posts_image) }}');">
           
           <div class="text">
             <div class="post-categories mb-3">
-              <span class="post-category bg-danger">Travel</span>
-              <span class="post-category bg-primary">Food</span>
+              <span class="post-category bg-danger">{{$value->posts_title}}</span>
+              <span class="post-category bg-primary">{{$value->posts_slug}}</span>
             </div>
-            <h2>The AI magically removes moving objects from videos.</h2>
-            <span class="date">July 19, 2019</span>
+            <h2>{{$value->posts_title}}</h2>
+            <span class="date">{{date("d M Y", strtotime($value->post_published_at))}}</span>
           </div>
         </a>
+        @endforeach
       </div>
       <div class="col-md-4">
-        <a href="single.html" class="h-entry mb-30 v-height gradient" style="background-image: url('{{ asset('frontend') }}/images/img_3.jpg');">
-          
-          <div class="text">
-            <h2>The 20 Biggest Fintech Companies In America 2019</h2>
-            <span class="date">July 19, 2019</span>
-          </div>
-        </a>
-        <a href="single.html" class="h-entry v-height gradient" style="background-image: url('{{ asset('frontend') }}/images/img_4.jpg');">
-          
-          <div class="text">
-            <h2>The 20 Biggest Fintech Companies In America 2019</h2>
-            <span class="date">July 19, 2019</span>
-          </div>
-        </a>
+        @foreach ($thirdPost as $value)
+          <a href="single.html" class="h-entry mb-30 v-height gradient" style="background-image: url('{{ asset('image/'.$value->posts_image) }}');">
+            
+            <div class="text">
+              <h2>{{$value->posts_title}}</h2>
+              <span class="date">{{date("d M Y", strtotime($value->post_published_at))}}</span>
+            </div>
+          </a>
+        @endforeach
       </div>
     </div>
   </div>
@@ -64,20 +58,20 @@
       @foreach ($recent_post as $value)
       <div class="col-lg-4 mb-4">
         <div class="entry2">
-          <a href="single.html"><img src="{{ asset('image/'. $value->posts_image) }}" alt="Image" class="img-fluid rounded" style="width:100%; height:200px"></a>
+          <a href="{{url('single/'.$value->posts_slug)}}"><img src="{{ asset('image/'. $value->posts_image) }}" alt="Image" class="img-fluid rounded" style="width:100%; height:200px"></a>
           <div class="excerpt">
           <span class="post-category text-white bg-secondary mb-3">{{$value->categories_name}}</span>
 
           <h2><a href="{{url('single/'.$value->posts_slug)}}">{{$value->posts_title}}</a></h2>
           <div class="post-meta align-items-center text-left clearfix">
             <figure class="author-figure mb-0 mr-3 float-left"><img src="{{ asset('frontend') }}/images/person_1.jpg" alt="Image" class="img-fluid"></figure>
-            <span class="d-inline-block mt-1">By <a href="#">{{$value->user_name}}</a></span>
-            {{-- <span>&nbsp;-&nbsp; {{$value->post_published_at}}</span> --}}
+            <span class="d-inline-block mt-1">By <a href="{{url('single/'.$value->posts_slug)}}">{{$value->user_name}}</a></span>
             <span>&nbsp;-&nbsp; {{date("d M Y", strtotime($value->post_published_at))}} </span>
           </div>
           
-            <p>{!! Str::limit($value->posts_description, '10', '...')  !!}</p>
-            <p><a href="#">Read More</a></p>
+            <p>{!! Str::limit($value->posts_description, '20', '...')  !!}</p>
+            {{-- <p>{!! $value->posts_description  !!}</p> --}}
+            <p><a href="{{url('single/'.$value->posts_slug)}}">Read More</a></p>
           </div>
         </div>
       </div>
@@ -106,40 +100,42 @@
     <div class="row align-items-stretch retro-layout">
       
       <div class="col-md-5 order-md-2">
-        <a href="single.html" class="hentry img-1 h-100 gradient" style="background-image: url('{{ asset('frontend') }}/images/img_4.jpg');">
-          <span class="post-category text-white bg-danger">Travel</span>
-          <div class="text">
-            <h2>The 20 Biggest Fintech Companies In America 2019</h2>
-            <span>February 12, 2019</span>
-          </div>
-        </a>
+        @foreach ($fast_footer_post as $value)
+          <a href="single.html" class="hentry img-1 h-100 gradient" style="background-image: url('{{ asset('image/'.$value->posts_image) }}');">
+            <span class="post-category text-white bg-danger">{{$value->posts_slug}}</span>
+            <div class="text">
+              <h2>{{$value->posts_title}}</h2>
+              <span>{{date("d M Y", strtotime($value->post_published_at))}}</span>
+            </div>
+          </a>
+        @endforeach
       </div>
 
       <div class="col-md-7">
-        
-        <a href="single.html" class="hentry img-2 v-height mb30 gradient" style="background-image: url('{{ asset('frontend') }}/images/img_1.jpg');">
-          <span class="post-category text-white bg-success">Nature</span>
+        @foreach ($third_footer_post as $value)
+        <a href="single.html" class="hentry img-2 v-height mb30 gradient" style="background-image: url('{{ asset('image/'.$value->posts_image) }}">
+          <span class="post-category text-white bg-success">{{$value->posts_slug}}</span>
           <div class="text text-sm">
-            <h2>The 20 Biggest Fintech Companies In America 2019</h2>
-            <span>February 12, 2019</span>
+            <h2>{{$value->posts_title}}</h2>
+            <span>{{date("d M Y", strtotime($value->post_published_at))}}</span>
           </div>
         </a>
+        @endforeach
+
         
-        <div class="two-col d-block d-md-flex">
-          <a href="single.html" class="hentry v-height img-2 gradient" style="background-image: url('{{ asset('frontend') }}/images/img_2.jpg');">
-            <span class="post-category text-white bg-primary">Sports</span>
+        <div class="two-col d-block d-md-flex justify-content-between">
+        @foreach ($middle_footer_post as $value)
+
+          <a href="single.html" class="hentry v-height img-2 gradient " style="background-image: url('{{ asset('image/'.$value->posts_image) }}')">
+            <span class="post-category text-white bg-primary">{{$value->posts_slug}}</span>
             <div class="text text-sm">
-              <h2>The 20 Biggest Fintech Companies In America 2019</h2>
-              <span>February 12, 2019</span>
+              <h2>{{$value->posts_title}}</h2>
+              <span>{{date("d M Y", strtotime($value->post_published_at))}}</span>
             </div>
           </a>
-          <a href="single.html" class="hentry v-height img-2 ml-auto gradient" style="background-image: url('{{ asset('frontend') }}/images/img_3.jpg');">
-            <span class="post-category text-white bg-warning">Lifestyle</span>
-            <div class="text text-sm">
-              <h2>The 20 Biggest Fintech Companies In America 2019</h2>
-              <span>February 12, 2019</span>
-            </div>
-          </a>
+          
+        @endforeach
+          
         </div>  
         
       </div>
