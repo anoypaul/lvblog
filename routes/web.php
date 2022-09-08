@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\CategoryController;
 use App\Http\Controllers\Frontend\TagController;
 use App\Http\Controllers\Frontend\PostController;
+use App\Http\Controllers\Frontend\AdminUserController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
 use App\Models\Registration;
@@ -38,20 +39,6 @@ Route::get('/single/{slug}', [UserController::class, 'single']);
 
 // ________Backend Route________
 
-// Route::get('/super-admin', function () {
-//     return view('admin.deshboard.index');
-// })->name('super.admin');
-
-// Route::get('/super-admin/user', function () {
-//     return view('admin.user.edit');
-// })->name('super.admin');
-
-// Route::get('/super-admin', function () {
-//     return view('admin.authentication.login');
-// })->name('super.admin');
-// Route::get('/super-admin/registration', function () {
-//     return view('admin.authentication.registration');
-// })->name('super.admin');
 
 // ****** register start *****
 Route::get('/login', [RegistrationController::class, 'login_page']);
@@ -61,6 +48,15 @@ Route::post('/super-admin/login', [RegistrationController::class, 'login'])->nam
 Route::get('/super-admin', [RegistrationController::class, 'index_page'])->name('super.admin');
 
 // ****** register end *****
+
+// ****** Admin User start *****
+Route::get('/admin-user', [AdminUserController::class, 'index']);
+Route::get('/admin-user/edit/{id}', [AdminUserController::class, 'edit']);
+Route::post('/admin-user/update/{id}', [AdminUserController::class, 'update']);
+Route::get('/admin-user/delete/{id}', [AdminUserController::class, 'delete']);
+
+// ****** Admin User end *****
+
 
 Route::resource('/category', CategoryController::class);
 Route::resource('/tag', TagController::class);

@@ -46,6 +46,7 @@ class RegistrationController extends Controller
             $request->session()->put('registrations_email', $data->registrations_email);
             return redirect('/super-admin');
         }
+        return redirect('/login');
 
     }
 

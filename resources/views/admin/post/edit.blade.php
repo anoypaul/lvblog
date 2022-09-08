@@ -38,11 +38,6 @@
             @csrf
             @method("PUT")
             <div class="card-body">
-              @php
-                  // echo '<pre>';
-                  // print_r($post[0]);
-                  // exit;
-              @endphp
               <div class="form-group">
                 <label for="title">Post Title</label>
                 <input type="text" class="form-control" id="title" name="title" value="{{$post[0]->posts_title }}" placeholder="Post Title">
