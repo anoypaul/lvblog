@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     public function index(){
-        // $post = Post::orderBy('posts_id', 'DESC')->paginate(5);
         $post = DB::table('posts')
             ->orderBy('posts_id', 'DESC')
             ->leftJoin('categories', 'posts.categories_id', '=', 'categories.categories_id')
@@ -26,7 +25,6 @@ class UserController extends Controller
         $fast_footer_post = $footer_post->splice(0, 1);
         $middle_footer_post = $footer_post->splice(0, 2);
         $third_footer_post = $footer_post->splice(0);
-        // dd($third_footer_post);
 
 
         $recent_post = DB::table('posts')
@@ -41,11 +39,16 @@ class UserController extends Controller
     }
 
     public function single($slug){
-        // $single_data = Post::where('posts_slug', $slug)->first();
         $single_data = DB::table('posts')
             ->where('posts_slug', '=', $slug)
             ->leftJoin('categories', 'posts.categories_id', '=', 'categories.categories_id')
+            ->leftJoin('post_tag', 'posts.posts_id', '=', 'post_tag.post_id')
+            ->leftJoin('tages', 'post_tag.tages_id', '=', 'tages.tages_id')
             ->first();
-        return view('frontend.single', compact('single_data'));
+            // dd($single_data);
+            if ($single_data) {
+                return view('frontend.single', compact('single_data'));
+            }
+        return redirect('/');
     }
 }

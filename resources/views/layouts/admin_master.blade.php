@@ -240,6 +240,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
               <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>User</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <div class="text-center">
                   <a href="{{url('/')}}" class="nav-link" target="_blank">
                     <button type="button" class="btn btn-primary ">Website</button>

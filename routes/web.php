@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\CategoryController;
 use App\Http\Controllers\Frontend\TagController;
 use App\Http\Controllers\Frontend\PostController;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
-
+use App\Models\Registration;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,22 +34,30 @@ Route::get('/', [UserController::class, 'index']);
 Route::get('/category', [UserController::class, 'category']);
 Route::get('/single/{slug}', [UserController::class, 'single']);
 
-// Route::get('/', function () {
-//     return view('frontend.index');
-// });
-// Route::get('/category', function () {
-//     return view('frontend.category');
-// });
-// Route::get('/single', function () {
-//     return view('frontend.single');
-// });
 
 
-// ____Backend Route_____
+// ________Backend Route________
 
-Route::get('/super-admin', function () {
-    return view('admin.deshboard.index');
-})->name('super.admin');
+// Route::get('/super-admin', function () {
+//     return view('admin.deshboard.index');
+// })->name('super.admin');
+
+// Route::get('/super-admin/user', function () {
+//     return view('admin.user.edit');
+// })->name('super.admin');
+
+// Route::get('/super-admin', function () {
+//     return view('admin.authentication.login');
+// })->name('super.admin');
+// Route::get('/super-admin/registration', function () {
+//     return view('admin.authentication.registration');
+// })->name('super.admin');
+
+// ****** register start *****
+Route::get('/super-admin', [RegistrationController::class, 'index']);
+Route::get('/super-admin/registration', [RegistrationController::class, 'registration']);
+Route::post('/super-admin/registration/create', [RegistrationController::class, 'create'])->name('registration.create');
+// ****** register end *****
 
 Route::resource('/category', CategoryController::class);
 Route::resource('/tag', TagController::class);
