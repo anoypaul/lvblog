@@ -32,7 +32,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // ____Frontend Route_____
 
 Route::get('/', [UserController::class, 'index']);
-Route::get('/category', [UserController::class, 'category']);
+Route::get('/categories/{slug}', [UserController::class, 'category']);
 Route::get('/single/{slug}', [UserController::class, 'single']);
 
 

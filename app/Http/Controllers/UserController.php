@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Frontend\Category;
 use App\Models\Frontend\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,11 +33,18 @@ class UserController extends Controller
             ->orderBy('posts_id', 'DESC')
             ->leftJoin('categories', 'posts.categories_id', '=', 'categories.categories_id')
             ->paginate(9);
-        return view('frontend.index', compact(['recent_post', 'fastPost', 'middlePost', 'thirdPost', 'fast_footer_post', 'middle_footer_post', 'third_footer_post']));
+
+        $categories = Category::all();
+        return view('frontend.index', compact(['recent_post', 'fastPost', 'middlePost', 'thirdPost', 'fast_footer_post', 'middle_footer_post', 'third_footer_post', 'categories']));
     }
 
-    public function category(){
-        return view('frontend.category');
+    public function category($slug){
+        $categories = Category::all();
+        $categories_data = Category::where('categories_slug', $slug)->first();
+        // echo '<pre>';
+        // print_r($categories);
+        // exit;
+        return view('frontend.category', compact(['categories', 'categories_data']));
     }
 
     public function single($slug){
@@ -45,9 +54,16 @@ class UserController extends Controller
             ->leftJoin('post_tag', 'posts.posts_id', '=', 'post_tag.post_id')
             ->leftJoin('tages', 'post_tag.tages_id', '=', 'tages.tages_id')
             ->first();
-            // dd($single_data);
+
+        $popular_post = DB::table('posts')
+            ->inRandomOrder()
+            ->leftJoin('categories', 'posts.categories_id', '=', 'categories.categories_id')
+            ->crossJoin('registrations')
+            ->limit(3)
+            ->get();
+        // dd($popular_post);
             if ($single_data) {
-                return view('frontend.single', compact('single_data'));
+                return view('frontend.single', compact(['single_data', 'popular_post']));
             }
         return redirect('/');
     }

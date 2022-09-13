@@ -8,7 +8,6 @@
       <div class="col-md-4">
         @foreach ($fastPost as $value)
           <a href="single.html" class="h-entry mb-30 v-height gradient" style="background-image: url('{{ asset('image/'.$value->posts_image) }} ');">
-            
             <div class="text">
               <h2>{{$value->posts_title}}</h2>
               <span class="date">{{date("d M Y", strtotime($value->post_published_at))}}</span>
