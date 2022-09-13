@@ -41,10 +41,13 @@ class UserController extends Controller
     public function category($slug){
         $categories = Category::all();
         $categories_data = Category::where('categories_slug', $slug)->first();
-        // echo '<pre>';
-        // print_r($categories);
-        // exit;
-        return view('frontend.category', compact(['categories', 'categories_data']));
+        if ($categories_data) {
+            $post_data = Post::where('categories_id', $categories_data->categories_id)
+            ->crossJoin('registrations')
+            ->paginate(6);
+            return view('frontend.category', compact(['categories', 'categories_data', 'post_data']));
+        }
+        return redirect()->back();
     }
 
     public function single($slug){
@@ -62,8 +65,10 @@ class UserController extends Controller
             ->limit(3)
             ->get();
         // dd($popular_post);
+        $categories = Category::all();
+
             if ($single_data) {
-                return view('frontend.single', compact(['single_data', 'popular_post']));
+                return view('frontend.single', compact(['single_data', 'popular_post', 'categories']));
             }
         return redirect('/');
     }
