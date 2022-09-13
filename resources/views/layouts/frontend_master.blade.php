@@ -44,7 +44,7 @@
           </div>
 
           <div class="col-4 site-logo">
-            <a href="index.html" class="text-black h2 mb-0">Mini Blog</a>
+            <a href="{{url('/')}}" class="text-black h2 mb-0">lv Blog</a>
           </div>
 
           <div class="col-8 text-right">

@@ -42,7 +42,7 @@
               <ul class="comment-list">
                 <li class="comment">
                   <div class="vcard">
-                    <img src="images/person_1.jpg" alt="Image placeholder">
+                    <img src="{{asset('admin')}}/dist/img/anoy-1.jpg" alt="Image placeholder">
                   </div>
                   <div class="comment-body">
                     <h3>Jean Doe</h3>
@@ -54,7 +54,7 @@
 
                 <li class="comment">
                   <div class="vcard">
-                    <img src="images/person_1.jpg" alt="Image placeholder">
+                    <img src="{{asset('admin')}}/dist/img/anoy-1.jpg" alt="Image placeholder">
                   </div>
                   <div class="comment-body">
                     <h3>Jean Doe</h3>
@@ -66,7 +66,7 @@
                   <ul class="children">
                     <li class="comment">
                       <div class="vcard">
-                        <img src="images/person_1.jpg" alt="Image placeholder">
+                        <img src="{{asset('admin')}}/dist/img/anoy-1.jpg" alt="Image placeholder">
                       </div>
                       <div class="comment-body">
                         <h3>Jean Doe</h3>
@@ -79,7 +79,7 @@
                       <ul class="children">
                         <li class="comment">
                           <div class="vcard">
-                            <img src="images/person_1.jpg" alt="Image placeholder">
+                            <img src="{{asset('admin')}}/dist/img/anoy-1.jpg" alt="Image placeholder">
                           </div>
                           <div class="comment-body">
                             <h3>Jean Doe</h3>
@@ -91,7 +91,7 @@
                             <ul class="children">
                               <li class="comment">
                                 <div class="vcard">
-                                  <img src="images/person_1.jpg" alt="Image placeholder">
+                                  <img src="{{asset('admin')}}/dist/img/anoy-1.jpg" alt="Image placeholder">
                                 </div>
                                 <div class="comment-body">
                                   <h3>Jean Doe</h3>
@@ -109,7 +109,7 @@
 
                 <li class="comment">
                   <div class="vcard">
-                    <img src="images/person_1.jpg" alt="Image placeholder">
+                    <img src="{{asset('admin')}}/dist/img/anoy-1.jpg" alt="Image placeholder">
                   </div>
                   <div class="comment-body">
                     <h3>Jean Doe</h3>
@@ -257,40 +257,40 @@
         <div class="row align-items-stretch retro-layout">
           
           <div class="col-md-5 order-md-2">
-            <a href="single.html" class="hentry img-1 h-100 gradient" style="background-image: url('images/img_4.jpg');">
-              <span class="post-category text-white bg-danger">Travel</span>
-              <div class="text">
-                <h2>The 20 Biggest Fintech Companies In America 2019</h2>
-                <span>February 12, 2019</span>
-              </div>
-            </a>
+            @foreach ($fast_related_post as $value)
+              <a href="single.html" class="hentry img-1 h-100 gradient" style="background-image: url({{asset('image/'.$value->posts_image)}});">
+                <span class="post-category text-white bg-danger">{{$value->posts_slug}}</span>
+                <div class="text">
+                  <h2>{{$value->posts_title}}</h2>
+                  <span>{{date('d M Y', strtotime($value->created_at))}}</span>
+                </div>
+              </a>
+            @endforeach
           </div>
 
           <div class="col-md-7">
-            
-            <a href="single.html" class="hentry img-2 v-height mb30 gradient" style="background-image: url('images/img_1.jpg');">
-              <span class="post-category text-white bg-success">Nature</span>
-              <div class="text text-sm">
-                <h2>The 20 Biggest Fintech Companies In America 2019</h2>
-                <span>February 12, 2019</span>
-              </div>
-            </a>
-            
-            <div class="two-col d-block d-md-flex">
-              <a href="single.html" class="hentry v-height img-2 gradient" style="background-image: url('images/img_2.jpg');">
-                <span class="post-category text-white bg-primary">Sports</span>
+
+            @foreach ($third_related_post as $value)
+              <a href="single.html" class="hentry img-2 v-height mb30 gradient" style="background-image: url({{asset('image/'.$value->posts_image)}});">
+                <span class="post-category text-white bg-success">{{$value->posts_slug}}</span>
                 <div class="text text-sm">
-                  <h2>The 20 Biggest Fintech Companies In America 2019</h2>
-                  <span>February 12, 2019</span>
+                  <h2>{{$value->posts_title}}</h2>
+                  <span>{{date('d M Y', strtotime($value->created_at))}}</span>
                 </div>
               </a>
-              <a href="single.html" class="hentry v-height img-2 ml-auto gradient" style="background-image: url('images/img_3.jpg');">
-                <span class="post-category text-white bg-warning">Lifestyle</span>
-                <div class="text text-sm">
-                  <h2>The 20 Biggest Fintech Companies In America 2019</h2>
-                  <span>February 12, 2019</span>
-                </div>
-              </a>
+            @endforeach
+            
+            <div class="two-col d-block d-md-flex justify-content-between">
+              @foreach ($second_related_post as $value)
+                <a href="single.html" class="hentry v-height img-2 gradient" style="background-image: url({{asset('image/'.$value->posts_image)}});">
+                  <span class="post-category text-white bg-primary">{{$value->posts_slug}}</span>
+                  <div class="text text-sm">
+                    <h2>{{$value->posts_title}}</h2>
+                    <span>{{date('d M Y', strtotime($value->created_at))}}</span>
+                  </div>
+                </a>
+              @endforeach
+              
             </div>  
             
           </div>

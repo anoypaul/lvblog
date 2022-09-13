@@ -64,12 +64,17 @@ class UserController extends Controller
             ->crossJoin('registrations')
             ->limit(3)
             ->get();
-        // dd($popular_post);
         $categories = Category::all();
 
-            if ($single_data) {
-                return view('frontend.single', compact(['single_data', 'popular_post', 'categories']));
-            }
+        // $related_post = Post::orderBy('categories_id', 'DESC')->inRandomOrder()->take(4)->get();
+        $related_post = DB::table('posts')->orderBy('categories_id', 'DESC')->inRandomOrder()->take(4)->get();
+        $fast_related_post = $related_post->splice(0, 1);
+        $second_related_post = $related_post->splice(0, 2);
+        $third_related_post = $related_post->splice(0, 1);
+
+        if ($single_data) {
+            return view('frontend.single', compact(['single_data', 'popular_post', 'categories', 'fast_related_post', 'second_related_post', 'third_related_post']));
+        }
         return redirect('/');
     }
 }
