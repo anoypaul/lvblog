@@ -5,6 +5,7 @@ use App\Http\Controllers\Frontend\CategoryController;
 use App\Http\Controllers\Frontend\TagController;
 use App\Http\Controllers\Frontend\PostController;
 use App\Http\Controllers\Frontend\AdminUserController;
+use App\Http\Controllers\Frontend\SeetingController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
 use App\Models\Registration;
@@ -61,3 +62,7 @@ Route::get('/admin-user/delete/{id}', [AdminUserController::class, 'delete']);
 Route::resource('/category', CategoryController::class);
 Route::resource('/tag', TagController::class);
 Route::resource('/post', PostController::class);
+
+Route::get('/super-admin/seeting', [SeetingController::class, 'edit']);
+Route::post('/super-admin/seeting/update', [SeetingController::class, 'update']);
+
