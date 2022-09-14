@@ -14,10 +14,8 @@ class SeetingController extends Controller
     }
 
     public function update(Request $request){
-        // dd($request->all());
         $setting = Seeting::find(1);
         $setting->seeting_name = $request->name;
-        // $setting->seeting_site_logo = $request->logo;
         if ($request->has('logo')) {
             $logo = $request->logo;
             $logo_new = time() .'.'. $logo->getClientOriginalExtension();

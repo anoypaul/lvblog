@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Frontend\Category;
 use App\Models\Frontend\Post;
+use App\Models\Frontend\Seeting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -35,7 +36,10 @@ class UserController extends Controller
             ->paginate(9);
 
         $categories = Category::all();
-        return view('frontend.index', compact(['recent_post', 'fastPost', 'middlePost', 'thirdPost', 'fast_footer_post', 'middle_footer_post', 'third_footer_post', 'categories']));
+
+        $setting_data = Seeting::all()->first();
+        
+        return view('frontend.index', compact(['recent_post', 'fastPost', 'middlePost', 'thirdPost', 'fast_footer_post', 'middle_footer_post', 'third_footer_post', 'categories', 'setting_data']));
     }
 
     public function category($slug){
