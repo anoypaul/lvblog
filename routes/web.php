@@ -37,6 +37,7 @@ Route::get('/categories/{slug}', [UserController::class, 'category']);
 Route::get('/single/{slug}', [UserController::class, 'single']);
 
 Route::get('/super-admin/about', [UserController::class, 'about']);
+Route::get('/super-admin/contact', [UserController::class, 'contact']);
 
 
 // ________Backend Route________

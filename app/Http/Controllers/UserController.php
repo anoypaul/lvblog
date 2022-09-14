@@ -90,7 +90,13 @@ class UserController extends Controller
         $categories = Category::all();
         $setting_data = Seeting::all()->first();
         $registration_data = Registration::all()->first();
-        // dd($registration_data);
         return view('frontend.about', compact(['categories', 'setting_data', 'registration_data']));
+    }
+
+    public function contact(){
+        $categories = Category::all();
+        $setting_data = Seeting::all()->first();
+        $registration_data = Registration::all()->first();
+        return view('frontend.contact', compact(['categories', 'setting_data', 'registration_data']));
     }
 }

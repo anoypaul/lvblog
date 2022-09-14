@@ -85,8 +85,8 @@
             <!-- <h3 class="footer-heading mb-4">Navigation</h3> -->
             <ul class="list-unstyled float-left mr-5">
               <li><a href="{{url('/')}}">Home</a></li>
-              <li><a href="{{('/super-admin/about')}}">About Us</a></li>
-              <li><a href="#">Contact Us</a></li>
+              <li><a href="{{url('/super-admin/about')}}">About Us</a></li>
+              <li><a href="{{url('/super-admin/contact')}}">Contact Us</a></li>
              
             </ul>
             <ul class="list-unstyled float-left">

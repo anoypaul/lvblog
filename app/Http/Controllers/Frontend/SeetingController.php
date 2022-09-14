@@ -29,6 +29,8 @@ class SeetingController extends Controller
         $setting->seeting_reddit = $request->reddit;
         $setting->seeting_email = $request->email;
         $setting->seeting_copyright = $request->copyright;
+        $setting->seeting_phone = $request->phone;
+        $setting->seeting_address = $request->address;
         $setting->save();
 
         $request->session()->flash('success', 'Data Update successfully');

@@ -95,6 +95,24 @@
                 </div>
                 <div class="col-6">
                     <div class="form-group">
+                        <label for="title">Phone</label>
+                        <input type="number" class="form-control" id="phone" name="phone" value="{{$seeting_data->seeting_phone}}" placeholder="Post phone">
+                        @error('phone')
+                            <div class="alert text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="title">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" value="{{$seeting_data->seeting_address}}" placeholder="Post address">
+                        @error('address')
+                            <div class="alert text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
                         <label for="title">Copyright</label>
                         <input type="text" class="form-control" id="copyright" name="copyright" value="{{$seeting_data->seeting_copyright}}" placeholder="Post copyright">
                         @error('copyright')

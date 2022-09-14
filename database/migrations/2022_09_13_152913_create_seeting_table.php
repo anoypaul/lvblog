@@ -24,6 +24,8 @@ class CreateSeetingTable extends Migration
             $table->string('seeting_reddit')->nullable();
             $table->string('seeting_email')->nullable();
             $table->string('seeting_copyright')->nullable();
+            $table->string('seeting_phone')->nullable();
+            $table->string('seeting_address')->nullable();
             $table->timestamps();
         });
     }
