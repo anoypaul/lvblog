@@ -36,6 +36,7 @@ Route::get('/', [UserController::class, 'index']);
 Route::get('/categories/{slug}', [UserController::class, 'category']);
 Route::get('/single/{slug}', [UserController::class, 'single']);
 
+Route::get('/super-admin/about', [UserController::class, 'about']);
 
 
 // ________Backend Route________
@@ -63,6 +64,7 @@ Route::resource('/category', CategoryController::class);
 Route::resource('/tag', TagController::class);
 Route::resource('/post', PostController::class);
 
-Route::get('/super-admin/seeting', [SeetingController::class, 'edit']);
-Route::post('/super-admin/seeting/update', [SeetingController::class, 'update']);
+Route::get('/super-admin/setting', [SeetingController::class, 'edit']);
+Route::post('/super-admin/setting/update', [SeetingController::class, 'update']);
+
 

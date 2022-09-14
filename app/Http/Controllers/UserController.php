@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Frontend\Category;
 use App\Models\Frontend\Post;
 use App\Models\Frontend\Seeting;
+use App\Models\Registration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -45,11 +46,13 @@ class UserController extends Controller
     public function category($slug){
         $categories = Category::all();
         $categories_data = Category::where('categories_slug', $slug)->first();
+        $setting_data = Seeting::all()->first();
+
         if ($categories_data) {
             $post_data = Post::where('categories_id', $categories_data->categories_id)
             ->crossJoin('registrations')
             ->paginate(6);
-            return view('frontend.category', compact(['categories', 'categories_data', 'post_data']));
+            return view('frontend.category', compact(['categories', 'categories_data', 'post_data', 'setting_data']));
         }
         return redirect()->back();
     }
@@ -70,15 +73,24 @@ class UserController extends Controller
             ->get();
         $categories = Category::all();
 
-        // $related_post = Post::orderBy('categories_id', 'DESC')->inRandomOrder()->take(4)->get();
         $related_post = DB::table('posts')->orderBy('categories_id', 'DESC')->inRandomOrder()->take(4)->get();
         $fast_related_post = $related_post->splice(0, 1);
         $second_related_post = $related_post->splice(0, 2);
         $third_related_post = $related_post->splice(0, 1);
 
+        $setting_data = Seeting::all()->first();
+
         if ($single_data) {
-            return view('frontend.single', compact(['single_data', 'popular_post', 'categories', 'fast_related_post', 'second_related_post', 'third_related_post']));
+            return view('frontend.single', compact(['single_data', 'popular_post', 'categories', 'fast_related_post', 'second_related_post', 'third_related_post', 'setting_data']));
         }
         return redirect('/');
+    }
+
+    public function about(){
+        $categories = Category::all();
+        $setting_data = Seeting::all()->first();
+        $registration_data = Registration::all()->first();
+        // dd($registration_data);
+        return view('frontend.about', compact(['categories', 'setting_data', 'registration_data']));
     }
 }

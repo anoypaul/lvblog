@@ -10,7 +10,7 @@ class SeetingController extends Controller
 {
     public function edit(){
         $seeting_data = Seeting::all()->first();
-        return view('admin.seeting.edit', compact('seeting_data'));
+        return view('admin.setting.edit', compact('seeting_data'));
     }
 
     public function update(Request $request){
@@ -34,4 +34,5 @@ class SeetingController extends Controller
         $request->session()->flash('success', 'Data Update successfully');
         return redirect()->back();
     }
+
 }

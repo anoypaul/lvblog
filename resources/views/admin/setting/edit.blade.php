@@ -34,7 +34,7 @@
         @endif
       </div>
       <div class="card-body p-0">
-        <form action="{{url('/super-admin/seeting/update')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{url('/super-admin/setting/update')}}" method="POST" enctype="multipart/form-data">
             @csrf
             {{-- @method("PUT") --}}
             <div class="card-body">
