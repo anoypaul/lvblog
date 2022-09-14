@@ -69,8 +69,8 @@
                 <div class="col-6">
                     <div class="form-group">
                         <label for="title">Instagram</label>
-                        <input type="text" class="form-control" id="email" name="email" value="{{$seeting_data->seeting_instagram}}" placeholder="Post email">
-                        @error('email')
+                        <input type="text" class="form-control" id="instagram" name="instagram" value="{{$seeting_data->seeting_instagram}}" placeholder="Post instagram">
+                        @error('instagram')
                             <div class="alert text-danger">{{ $message }}</div>
                         @enderror
                     </div>
@@ -111,8 +111,8 @@
                     <input type="file" class="form-control" id="logo" name="logo" value="" placeholder="Post logo">
                   </div>
                   <div class="col-4" >
-                    <div style="max-width:100px; max-height: 70px; overflow:hidden; margin-left:auto">
-                      <img src="" alt="">
+                    <div class="img-fluid" style="max-width:70px; max-height: 70px; overflow:hidden; margin-left:auto">
+                      <img class="img-fluid h-100" src="{{asset('image/setting/'.$seeting_data->seeting_site_logo)}}" alt="logo">
                     </div>
                   </div>
                 </div>
