@@ -7,6 +7,8 @@ use Laravel\Ui\Presets\React;
 use App\Models\Registration;
 use Illuminate\Support\Facades\DB;
 
+//*** This is the UserSide/FrontendSide Controller **
+
 class RegistrationController extends Controller
 {
     public function login_page(){

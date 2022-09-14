@@ -20,7 +20,13 @@
           <div class="p-4">
             <div class="card text-white bg-secondary mb-3">
               <div class="card-body ">
-                <form>
+                <div>
+                  @if (Session::has('success'))
+                      <p class="alert alert-primary">{{Session::get('success')}}</p>
+                  @endif
+                </div>
+                <form action="{{url('/super-admin/contact-submit')}}" method="POST">
+                  @csrf
                   <div class="form-row">
                     <div class="form-group col-md-6">
                       <label for="first_name">First Name</label>
@@ -44,7 +50,7 @@
                     {{-- <input type="text" class="form-control" name="message" id="message" placeholder="Enter Message"> --}}
                     <textarea class="form-control" rows="4" name="message" id="message" value="" placeholder="Enter Message"></textarea>
                   </div>
-                  <button type="submit" class="btn btn-primary">Sign in</button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
               </div>
             </div>

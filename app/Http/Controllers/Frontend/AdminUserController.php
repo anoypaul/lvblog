@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 
+//*** This is the AdminSide Controller **
+
 class AdminUserController extends Controller
 {
     public function index(){

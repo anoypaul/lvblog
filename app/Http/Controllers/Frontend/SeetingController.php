@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Frontend\Seeting;
 use Illuminate\Http\Request;
 
+//*** This is the AdminSide Controller **
+
 class SeetingController extends Controller
 {
     public function edit(){

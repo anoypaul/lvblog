@@ -6,8 +6,11 @@ use App\Models\Frontend\Category;
 use App\Models\Frontend\Post;
 use App\Models\Frontend\Seeting;
 use App\Models\Registration;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
+//*** This is the UserSide/FrontendSide Controller **
 
 class UserController extends Controller
 {
@@ -98,5 +101,18 @@ class UserController extends Controller
         $setting_data = Seeting::all()->first();
         $registration_data = Registration::all()->first();
         return view('frontend.contact', compact(['categories', 'setting_data', 'registration_data']));
+    }
+
+    public function contact_submit(Request $request){
+        // dd($request->all());
+        $contact = new Contact();
+        $contact->contacts_name = $request->first_name ." ". $request->last_name;
+        $contact->contacts_email = $request->email;
+        $contact->contacts_subject = $request->subject;
+        $contact->contacts_message = $request->message;
+        $contact->save();
+
+        $request->session()->flash('success','Data Inserted successfully');
+        return redirect()->back();
     }
 }
