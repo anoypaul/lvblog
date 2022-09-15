@@ -216,43 +216,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Active Page</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('category.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                <a href="{{route('category.index')}}" class="nav-link {{ (request()->is('category*')) ? 'active' : ''}} ">
+                  <i class="nav-icon fas fa-tags"></i>
                   <p>Category</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('tag.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                <a href="{{route('tag.index')}}" class="nav-link {{ (request()->is('tag*')) ? 'active' : '' }} ">
+                  <i class="nav-icon fas fa-tag"></i>
                   <p>Tags</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('post.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                <a href="{{route('post.index')}}" class="nav-link {{ (request()->is('post*')) ? 'active' : '' }} ">
+                  <i class="nav-icon fas fa-pen-square"></i>
                   <p>Post</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('/admin-user')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                <a href="{{url('/admin-user')}}" class="nav-link {{ (request()->is('admin-user*')) ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-envelope"></i>
                   <p>User</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('/super-admin/setting')}}" class="nav-link">
+                <a href="{{url('/super-admin/setting')}}" class="nav-link {{ (request()->is('super-admin/setting')) ? 'active' : ''}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Seeting</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('/contact')}}" class="nav-link">
+                <a href="{{url('/contact')}}" class="nav-link {{ (request()->is('contact*')) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Message</p>
                 </a>
